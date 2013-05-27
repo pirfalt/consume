@@ -10,7 +10,7 @@ Because functions that only do one thing is better than functions that does two.
 
     function logPackage(buffer) {
       var json = JSON.parse(buffer.toString())
-      log(
+      console.log(
         json.name, '\n',
         json.description, '\n',
         json.version, '\n',
@@ -19,53 +19,26 @@ Because functions that only do one thing is better than functions that does two.
     }
 
     function handleError(error) {
-      log(error); // Not that handled, but you get the point
+      console.log(error); // Not that handled, but you get the point
     }
 
 ## Docs
 
+    type Callback<T>: (Error, T) => void
+
 ### consume(errorHandler, successHandler)
 
-    consume( (Error) => void, (Value) => void ) =>
-      (err, data) => void
+    consume( (Error) => void, (T) => void ) => Callback<T>
 
 Thats all. Technically both the errorHandler and the successHandler are optional, but you don't get anywhere without a success handler. And you have to type `consume(null, onSuccess)` to ignore the error, which should make you think twice.
 
-## Continuable is awsome
 
-As a companion to [`continuable`][continuable], `consume` lets you take that last step and use single purpose composable functions to the end. To be fair the [`continuable`][continuable] part does most of the cool stuff here. (Like error propagation and )
+## Continuable
 
-    // Get a callback, make it a monad
-    continuable( readFile('../package.json') )
+As a companion to [`continuable`][continuable], `consume` lets you take that last step and use single purpose, composable functions to the end.
 
-    // Transform the response
-    .map( compose( asJSON, String ) )
+## License MIT
 
-    // Make new request using data in response
-    .chain(function(json) {
-      return readFile( json.license.url )
-    })
-
-    // Consume in the end
-    ( consume( handleError, compose( log, String ) ) )
-
-
-
-    // Helpers that gets hoisted
-    function readFile(uri) {
-      return function(cb) {
-        fs.readFile(uri, cb)
-      }
-    }
-    
-    function asJSON(str) {
-      return JSON.parse(str)
-    }
-    
-    function log(v){
-      console.log.apply(console, arguments)
-      return v
-    }
 
 
 [continuable]: https://npmjs.org/package/continuable
