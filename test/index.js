@@ -21,7 +21,16 @@ test('Consumes values from callbacks', function(assert) {
     }
   )
 
+  var cOnlyVal = consume(
+    null
+    ,function(val) {
+      assert.equal(val, value)
+    }
+  )
+
   valBack(c)
+  valBack(cOnlyVal)
+  assert.throws( function(){ errBack(cOnlyVal) }, 'Consuming only the value throws on error' )
 
   assert.end()
 })
@@ -36,10 +45,19 @@ test('Consumes errors from callbacks', function(assert) {
     }
   )
 
+  var cOnlyErr = consume(
+    function(err) {
+      assert.equal(err, error)
+    }
+  )
+
   errBack(c)
+  errBack(cOnlyErr)
+  assert.throws( function(){ valBack(cOnlyErr) }, 'Consuming only the error throws on value' )
 
   assert.end()
 })
+
 
 test('Read test', function(assert) {
   function guessFirstLine(buffer) {
