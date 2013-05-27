@@ -1,0 +1,24 @@
+{
+  "name": "consume",
+  "version": "0.0.1",
+  "description": "Consume a callback without complecting handling with errorHandling",
+  "main": "consume.js",
+  "directories": {
+    "example": "examples",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node ./test/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pirfalt/consume.git"
+  },
+  "keywords": [
+    "Callback"
+  ],
+  "author": "Emil Pirfalt",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "gitHead": "bd6eb2014a2d4a5c9ef3a09e10854d97e8bbf8bf"
+}
