@@ -58,7 +58,6 @@ test('Consumes errors from callbacks', function(assert) {
   assert.end()
 })
 
-
 test('Read test', function(assert) {
   function guessFirstLine(buffer) {
     var firstLine = buffer.toString().split('\n')[0]
@@ -68,10 +67,10 @@ test('Read test', function(assert) {
     assert.end()
   }
 
-  function wrongGuess(error) {
+  function wrongGuess(error) { // Should never be called
     assert.fail(error.toString())
     assert.end()
   }
 
-  fs.readFile('./index.js', consume(wrongGuess, guessFirstLine))
+  fs.readFile('test/index.js', consume(wrongGuess, guessFirstLine))
 })
