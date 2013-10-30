@@ -1,6 +1,6 @@
 {
   "name": "consume",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Consume a callback without complecting handling with errorHandling",
   "main": "consume.js",
   "directories": {
