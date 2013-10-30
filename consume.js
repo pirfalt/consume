@@ -1,9 +1,10 @@
 module.exports = consume;
 
-// conusme( (Error) => void, (T) => void ) => Callback<T>
+// conusme( (Error) => Any, (T) => Any ) => (Error, T) => Any
 function consume(onError, onData) {
   return function(err, val) {
-    if (err) return onError(err)
-    else return onData(val)
+    return err
+      ? onError(err)
+      : onData(val)
   }
 }
